@@ -1,4 +1,10 @@
 # Django global query strings
+[![Python 3](https://img.shields.io/badge/python-3.6|3.7|3.8-blue.svg)](https://www.python.org/downloads/release/python-270/) 
+[![Django 2](https://img.shields.io/badge/django-2.x-blue.svg)](https://docs.djangoproject.com/en/2.2/)
+![Python CI](https://github.com/briefmnews/django-global-query-strings/workflows/Python%20CI/badge.svg)
+[![codecov](https://codecov.io/gh/briefmnews/django-global-query-strings/branch/main/graph/badge.svg?token=vf2gtEaMBp)](https://codecov.io/gh/briefmnews/django-global-query-strings)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+
 `Django global query strings` allows adding query strings (query params) globally.  
 The app looks for all the `<a>` tags in a html content thanks to [BeautifulSoup](https://pypi.org/project/beautifulsoup4/#description).
 
