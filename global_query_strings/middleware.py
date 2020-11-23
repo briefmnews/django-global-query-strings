@@ -12,9 +12,9 @@ class GlobalQueryStringsMiddleware:
 
         # Handle image in Content-Type response
         # and handle StreamingHttpResponse response such as large CSV or SVG files.
-        if "image" in response["Content-Type"] or isinstance(
-            response, StreamingHttpResponse
-        ):
+        if (
+            "Content-Type" in response and "image" in response["Content-Type"]
+        ) or isinstance(response, StreamingHttpResponse):
             return response
 
         response.content = add_query_strings_to_links(response.content)
