@@ -3,7 +3,9 @@ from urllib.parse import urlencode, parse_qs, urlsplit, urlunsplit
 
 from django.conf import settings
 
-GLOBAL_QUERY_STRINGS_IGNORE_URLS = getattr(settings, "GLOBAL_QUERY_STRINGS_IGNORE_URLS", [])
+GLOBAL_QUERY_STRINGS_IGNORE_URLS = getattr(
+    settings, "GLOBAL_QUERY_STRINGS_IGNORE_URLS", []
+)
 GLOBAL_QUERY_STRINGS_IGNORE_RELATIVE_PATHS = getattr(
     settings, "GLOBAL_QUERY_STRINGS_IGNORE_RELATIVE_PATHS", False
 )
@@ -23,13 +25,19 @@ def add_query_strings_to_links(html_content):
         if not link.has_attr("href"):
             continue
 
-        to_exclude = any(excluded in link["href"] for excluded in GLOBAL_QUERY_STRINGS_IGNORE_URLS)
+        to_exclude = any(
+            excluded in link["href"] for excluded in GLOBAL_QUERY_STRINGS_IGNORE_URLS
+        )
         exclude_relative_path = (
-            "http" not in link["href"] if GLOBAL_QUERY_STRINGS_IGNORE_RELATIVE_PATHS else False
+            "http" not in link["href"]
+            if GLOBAL_QUERY_STRINGS_IGNORE_RELATIVE_PATHS
+            else False
         )
 
         if not to_exclude and not exclude_relative_path:
-            link["href"] = _set_query_parameters(link["href"], GLOBAL_QUERY_STRINGS_PARAMS)
+            link["href"] = _set_query_parameters(
+                link["href"], GLOBAL_QUERY_STRINGS_PARAMS
+            )
 
     return str(soup)
 
