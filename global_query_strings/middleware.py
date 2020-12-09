@@ -10,12 +10,9 @@ class GlobalQueryStringsMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
 
-        # Handle image in Content-Type response
-        # and handle StreamingHttpResponse response such as large CSV or SVG files.
         if (
-            "Content-Type" in response and "image" in response["Content-Type"]
-        ) or isinstance(response, StreamingHttpResponse):
-            return response
+            "Content-Type" in response and "text/html" in response["Content-Type"]
+        ) :
+            response.content = add_query_strings_to_links(response.content)
 
-        response.content = add_query_strings_to_links(response.content)
         return response
