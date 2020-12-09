@@ -1,5 +1,3 @@
-from django.http import StreamingHttpResponse
-
 from .utils import add_query_strings_to_links
 
 
@@ -12,7 +10,7 @@ class GlobalQueryStringsMiddleware:
 
         if (
             "Content-Type" in response and "text/html" in response["Content-Type"]
-        ) :
+        ):
             response.content = add_query_strings_to_links(response.content)
 
         return response

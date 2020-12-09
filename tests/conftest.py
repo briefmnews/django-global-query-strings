@@ -1,9 +1,5 @@
 import pytest
 
-from django.contrib.auth.models import AnonymousUser
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.test.client import RequestFactory
-
 
 @pytest.fixture
 def html_content():
@@ -21,24 +17,3 @@ def html_content():
         "<a href='https://www.foo.org?foo=ipsum'>publishing software</a>like Aldus PageMaker "
         "including versions of Lorem Ipsum.</body></html>"
     )
-
-
-@pytest.fixture
-def request_builder():
-    return RequestBuilder()
-
-
-class RequestBuilder:
-    @staticmethod
-    def get(path="/"):
-        rf = RequestFactory()
-        request = rf.get(path=path)
-        request.user = AnonymousUser()
-
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-
-        request.content = ""
-
-        return request
