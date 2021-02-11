@@ -62,3 +62,31 @@ class TestGlobalQueryStringsMiddleware:
 
         # THEN
         assert mock_add_query_strings_to_links.call_count == 0
+
+    def test_exclude_admin_path_bypass_middleware(self, request, mocker):
+        # GIVEN
+        mock_add_query_strings_to_links = mocker.patch(
+            "global_query_strings.middleware.add_query_strings_to_links"
+        )
+        request.path = "/admin/dummy/"
+        middleware = GlobalQueryStringsMiddleware(dummy_html_middleware)
+
+        # WHEN
+        middleware(request)
+
+        # THEN
+        assert mock_add_query_strings_to_links.call_count == 0
+
+    def test_exclude_admin_path_do_not_bypass_middleware(self, request, mocker):
+        # GIVEN
+        mock_add_query_strings_to_links = mocker.patch(
+            "global_query_strings.middleware.add_query_strings_to_links"
+        )
+        request.path = "/dummy/"
+        middleware = GlobalQueryStringsMiddleware(dummy_html_middleware)
+
+        # WHEN
+        middleware(request)
+
+        # THEN
+        assert mock_add_query_strings_to_links.call_count == 1
