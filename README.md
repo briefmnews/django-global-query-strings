@@ -50,6 +50,7 @@ Here is the list of all the settings with their default values:
 GLOBAL_QUERY_STRINGS_IGNORE_URLS = []
 GLOBAL_QUERY_STRINGS_IGNORE_RELATIVE_PATHS = False
 GLOBAL_QUERY_STRINGS_PARAMS = {}
+GLOBAL_QUERY_STRINGS_EXCLUDE_PATHS_LIST = []
 ```
 
 #### GLOBAL_QUERY_STRINGS_IGNORE_URLS 
@@ -60,6 +61,10 @@ GLOBAL_QUERY_STRINGS_PARAMS = {}
 
 #### GLOBAL_QUERY_STRINGS_PARAMS 
 `GLOBAL_QUERY_STRINGS_PARAMS` takes a dictionary of global query strings to set e.g.: `{"foo": "bar", "lorem": "ipsum"}`. The query strings found in `GLOBAL_QUERY_STRINGS_PARAMS` would be replaced / added to the urls found by the parser.
+
+#### GLOBAL_QUERY_STRINGS_EXCLUDE_PATHS_LIST
+`GLOBAL_QUERY_STRINGS_EXCLUDE_PATHS_LIST` is a list of paths to exclude that takes place in the middleware only. 
+All the paths that starts with any elements of the list will bypass the middleware. e.g.: `["/admin"]`
 
 ## Usage
 Here is an example of input / output with the following settings:
