@@ -11,6 +11,7 @@ def dummy_middleware(request):
     response.status_code = 200
     return response
 
+
 def dummy_html_middleware(request):
     response = dummy_middleware(request)
     response["Content-type"] = "text/html"
@@ -24,7 +25,6 @@ def dummy_pdf_middleware(request):
 
 
 class TestGlobalQueryStringsMiddleware:
-
     def test_init(self):
         """Testing the __init__ method"""
         # GIVEN / WHEN
@@ -38,6 +38,7 @@ class TestGlobalQueryStringsMiddleware:
         mock_add_query_strings_to_links = mocker.patch(
             "global_query_strings.middleware.add_query_strings_to_links"
         )
+        request.path = "/"
         middleware = GlobalQueryStringsMiddleware(dummy_html_middleware)
         assert mock_add_query_strings_to_links.call_count == 0
 
@@ -52,6 +53,7 @@ class TestGlobalQueryStringsMiddleware:
         mock_add_query_strings_to_links = mocker.patch(
             "global_query_strings.middleware.add_query_strings_to_links"
         )
+        request.path = "/"
         middleware = GlobalQueryStringsMiddleware(dummy_pdf_middleware)
         assert mock_add_query_strings_to_links.call_count == 0
 
